@@ -1,0 +1,25 @@
+<Project>
+
+  <!--
+    - Would also work in props this way.
+    - The number appears also in the log, i.e. 'ConsoleToMSBuild' is not a redirection, but a duplication.
+      Can be prevented by StandardXxxImporatance="low"
+    - Relation to other targets (before/after/dependson), e.g.
+      <Target Name="InitializeSourceControlInformation" />
+    - Find a more elegant solution (but NerdBank.GitVersioning seems overkill)
+      - run git rev-list with some redirect and set an env var?
+  -->
+  <Target Name="SomeTarget" BeforeTargets="PreBuildEvent">
+    <Exec Command="git rev-list --count HEAD"
+          ConsoleToMSBuild="true"
+          StandardErrorImportance="low"
+          StandardOutputImportance="low"
+          Condition=" '$(GitCommitCount)' == '' ">
+      <Output TaskParameter="ConsoleOutput" PropertyName="GitCommitCount" />
+    </Exec>
+    <PropertyGroup>
+      <VersionSuffix>$(VersionSuffix).$(GitCommitCount)</VersionSuffix>
+    </PropertyGroup>
+  </Target>
+
+</Project>

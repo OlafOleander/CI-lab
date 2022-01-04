@@ -1,0 +1,24 @@
+<Project>
+
+  <PropertyGroup Condition="'$(CI)' == ''">
+    <CI>false</CI>
+    <!-- GitHub already defines CI -->
+    <CI Condition="'$(TF_BUILD)' == 'true' or '$(APPVEYOR)' != ''">true</CI>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Matthias Wolf</Authors>
+    <Company>Mawosoft</Company>
+    <Product>Mawosoft.MissingCoverage</Product>
+    <Copyright>Copyright (c) 2021-2022 Matthias Wolf, Mawosoft</Copyright>
+    <VersionPrefix>0.2.1</VersionPrefix>
+    <VersionSuffix>dev</VersionSuffix>
+  </PropertyGroup>
+
+</Project>
