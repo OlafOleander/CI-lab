@@ -18,7 +18,19 @@
       <Output TaskParameter="ConsoleOutput" PropertyName="GitCommitCount" />
     </Exec>
     <PropertyGroup>
-      <VersionSuffix>$(VersionSuffix).$(GitCommitCount)</VersionSuffix>
+      <!--
+      $(Version) has already been set during eval. Thus changing only VersionSuffix won't affect Version.
+      Not sure yet how to do this.
+      If not set, $(AssemblyVersion) and $(FileVersion) default to pre-hyphen/plus part of $(Version)
+      - We use something like 0.2.1-dev as base for non-release builds ==> becomes 0.2.1-dev.7 (#commits) ==> 0.2.1-dev.7+abc123 (sha)
+      - For release builds, we want 0.2.1 possibly w/o +sha.
+        Assembly version should be 0.2.1.0 or even less precise (probably not as long as major = 0)
+        But file version should reflect commit, e.g. 0.2.1.7 or somethings derived from sha.
+      -->
+      <_VersionContainsHyphen>false</_VersionContainsHyphen>
+      <_VersionContainsHyphen Condition="$(Version.Contains('-'))" >true</_VersionContainsHyphen>
+      <Version Condition="$(_VersionContainsHyphen)">$(Version).$(GitCommitCount)</Version>
+      <IncludeSourceRevisionInInformationalVersion  Condition="!$(_VersionContainsHyphen)">false</IncludeSourceRevisionInInformationalVersion>
     </PropertyGroup>
   </Target>
 

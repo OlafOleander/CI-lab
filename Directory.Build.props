@@ -15,10 +15,9 @@
   <PropertyGroup>
     <Authors>Matthias Wolf</Authors>
     <Company>Mawosoft</Company>
-    <Product>Mawosoft.MissingCoverage</Product>
+    <Product>Mawosoft.ConsoleApp3</Product>
     <Copyright>Copyright (c) 2021-2022 Matthias Wolf, Mawosoft</Copyright>
-    <VersionPrefix>0.2.1</VersionPrefix>
-    <VersionSuffix>dev</VersionSuffix>
+    <Version>0.2.1-dev</Version>
   </PropertyGroup>
 
 </Project>
