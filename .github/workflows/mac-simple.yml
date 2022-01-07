@@ -1,3 +1,28 @@
 name: mac-simple
 on:
   workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+      #with:
+      #  fetch-depth: 0
+    - name: setup dotnet 5 & 6
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: | 
+          5.0.x
+          6.0.x
+    - name: info
+      run: dotnet --info
+    - name: restore
+      run: dotnet restore
+    - name: build
+      run: dotnet build --no-restore
+    - name: test net5
+      run: dotnet test --no-build -f net5.0 tests/Mawosoft.ConsoleApp3.Tests/Mawosoft.ConsoleApp3.Tests.csproj
+    - name: test net6
+      run: dotnet test --no-build -f net6.0 tests/Mawosoft.ConsoleApp3.Tests/Mawosoft.ConsoleApp3.Tests.csproj
