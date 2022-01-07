@@ -8,8 +8,12 @@
       <Target Name="InitializeSourceControlInformation" />
     - Find a more elegant solution (but NerdBank.GitVersioning seems overkill)
       - run git rev-list with some redirect and set an env var?
+    - BeforeTargets=PreBuildEvent isn't sufficient.
+      Also needs to run on:
+      - Pack (to include proper version in package name)
+      - Publish?, Push?
   -->
-  <Target Name="SomeTarget" BeforeTargets="PreBuildEvent">
+  <Target Name="SomeTarget" BeforeTargets="CoreCompile;InitializeSourceControlInformation">
     <Exec Command="git rev-list --count HEAD"
           ConsoleToMSBuild="true"
           StandardErrorImportance="low"
@@ -27,10 +31,13 @@
         Assembly version should be 0.2.1.0 or even less precise (probably not as long as major = 0)
         But file version should reflect commit, e.g. 0.2.1.7 or somethings derived from sha.
       -->
+      <_SetPackageVersion>false</_SetPackageVersion>
+      <_SetPackageVersion Condition="'$(PackageVersion)' == '' or '$(PackageVersion)' == '$(Version)'">true</_SetPackageVersion>
       <_VersionContainsHyphen>false</_VersionContainsHyphen>
       <_VersionContainsHyphen Condition="$(Version.Contains('-'))" >true</_VersionContainsHyphen>
       <Version Condition="$(_VersionContainsHyphen)">$(Version).$(GitCommitCount)</Version>
       <IncludeSourceRevisionInInformationalVersion  Condition="!$(_VersionContainsHyphen)">false</IncludeSourceRevisionInInformationalVersion>
+      <PackageVersion Condition="$(_SetPackageVersion)">$(Version)</PackageVersion>
     </PropertyGroup>
   </Target>
 
