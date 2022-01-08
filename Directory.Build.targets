@@ -12,6 +12,9 @@
       Also needs to run on:
       - Pack (to include proper version in package name)
       - Publish?, Push?
+    - If a target listed in BeforeTargets does not exist, only a low prio message, but no warning or error is generated.
+      A non-exisitng target in DependsOnTargets creates an error.
+    
   -->
   <Target Name="SomeTarget" BeforeTargets="CoreCompile;InitializeSourceControlInformation">
     <Exec Command="git rev-list --count HEAD"
