@@ -19,7 +19,8 @@ jobs:
     - name: info
       run: dotnet --info
     - name: restore
-      run: dotnet restore
+      # benchmarks and tests restore are time-consuming
+      run: dotnet restore src/Mawosoft.ConsoleApp3/Mawosoft.ConsoleApp3.csproj
     - name: build
       run: dotnet build --no-restore -c Release src/Mawosoft.ConsoleApp3/Mawosoft.ConsoleApp3.csproj
     - name: publish
