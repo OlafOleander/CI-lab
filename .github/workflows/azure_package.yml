@@ -28,6 +28,10 @@ jobs:
         dotnet publish -f net6.0 --no-build -c Release src/Mawosoft.ConsoleApp3/Mawosoft.ConsoleApp3.csproj
     - name: pack
       run: dotnet pack --no-build -c Release src/Mawosoft.ConsoleApp3/Mawosoft.ConsoleApp3.csproj
+    - name: azure cred provider
+      run: wget -qO- https://aka.ms/install-artifacts-credprovider.sh | bash
     - name: push
+      env:
+        VSS_NUGET_EXTERNAL_FEED_ENDPOINTS: '{"endpointCredentials": [{"endpoint":"https://pkgs.dev.azure.com/mawosoft-de/public-ci-lab/_packaging/public-ci-lab-feed/nuget/v3/index.json", "password":"${{ secrets.AZURE_PACKAGE_PAT }}"}]}'
       run: |
-        dotnet nuget push "src/Mawosoft.ConsoleApp3/bin/Release/*.nupkg" --source https://pkgs.dev.azure.com/mawosoft-de/public-ci-lab/_packaging/public-ci-lab-feed/nuget/v3/index.json --api-key ${{ secrets.AZURE_PACKAGE_PAT }}
+        dotnet nuget push "src/Mawosoft.ConsoleApp3/bin/Release/*.nupkg" --source https://pkgs.dev.azure.com/mawosoft-de/public-ci-lab/_packaging/public-ci-lab-feed/nuget/v3/index.json --api-key az
