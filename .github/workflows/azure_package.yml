@@ -1,0 +1,33 @@
+name: azure-package
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: setup dotnet 5 & 6
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: | 
+          5.0.x
+          6.0.x
+    - name: info
+      run: dotnet --info
+    - name: restore
+      run: dotnet restore
+    - name: build
+      run: dotnet build --no-restore -c Release src/Mawosoft.ConsoleApp3/Mawosoft.ConsoleApp3.csproj
+    - name: publish
+      run: |
+        dotnet publish -f net5.0 --no-build -c Release src/Mawosoft.ConsoleApp3/Mawosoft.ConsoleApp3.csproj
+        dotnet publish -f net6.0 --no-build -c Release src/Mawosoft.ConsoleApp3/Mawosoft.ConsoleApp3.csproj
+    - name: pack
+      run: dotnet pack --no-build -c Release src/Mawosoft.ConsoleApp3/Mawosoft.ConsoleApp3.csproj
+    - name: push
+      run: |
+        dotnet nuget push "src/Mawosoft.ConsoleApp3/bin/Release/*.nupkg" --source https://pkgs.dev.azure.com/mawosoft-de/public-ci-lab/_packaging/public-ci-lab-feed/nuget/v3/index.json --api-key ${{ secrets.AZURE_PACKAGE_PAT }}
