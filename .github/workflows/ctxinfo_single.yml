@@ -2,11 +2,14 @@ name: ctxinfo single
 
 on:
   workflow_dispatch:
-  #push:
-  #  branches:
-  #    - buildtest
-  #  tags:
-  #    - v*
+  push:
+    branches:
+      - '*'
+    tags:
+      - v*
+  pull_request:
+    branches: 
+      - '*'
 
 jobs:
   info:
