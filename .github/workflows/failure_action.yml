@@ -1,0 +1,29 @@
+name: failure action
+
+on:
+  workflow_dispatch:
+  #push:
+  #  branches:
+  #    - buildtest
+
+# These all work as expected
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Log Environment
+      continue-on-error: false
+      shell: pwsh
+      run: 'this-cmd-does-not-exist'
+    - name: Run on failure
+      if: failure()
+      shell: pwsh
+      run: echo 'did run'
+    - name: Run on success
+      if: success()
+      shell: pwsh
+      run: echo 'did run'
+    - name: Run always
+      if: always()
+      shell: pwsh
+      run: echo 'did run'

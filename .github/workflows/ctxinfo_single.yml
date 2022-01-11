@@ -1,0 +1,26 @@
+name: ctxinfo single
+
+on:
+  workflow_dispatch:
+  #push:
+  #  branches:
+  #    - buildtest
+  #  tags:
+  #    - v*
+
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Log Environment
+      continue-on-error: true
+      shell: pwsh
+      run: 'Get-ChildItem Env:'
+    - name: Log github ctx
+      continue-on-error: true
+      shell: pwsh
+      run: echo '${{ toJson(github) }}'
+    - name: Log runner ctx
+      continue-on-error: true
+      shell: pwsh
+      run: echo '${{ toJson(runner) }}'

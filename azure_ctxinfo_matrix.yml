@@ -1,0 +1,56 @@
+name: $(date:yyyyMMdd)$(rev:.r)
+
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: master
+
+trigger:
+  branches:
+    include:
+    - '*'  # default
+  paths:
+    include:
+    - '*'  # default
+  tags:
+    include:
+    - '*'  # default
+
+# trigger: none
+pr: # also allows branches and paths
+  - '*' # default. These are PR target branches, e.g. master
+
+stages:
+- stage: First stage
+  jobs:
+  - job: job1
+    displayname: Job 1
+    strategy:
+      matrix:
+        imageName: [ubuntu-latest, macOS-latest, windows-latest]
+    pool:
+      name: Azure Pipelines
+      vmImage: $(imageName)
+    steps:
+    - pwsh: 'Get-ChildItem Env:'
+      name: Log Environment
+      continue-on-error: true
+    - pwsh: echo '${{ convertToJson(variables) }}'
+      name: Log variables
+      continue-on-error: true
+    - pwsh: echo '${{ convertToJson(parameters) }}'
+      name: Log parameters
+      continue-on-error: true
+    - pwsh: echo '${{ convertToJson(System) }}'
+      name: Log System
+      continue-on-error: true
+    - pwsh: echo '${{ convertToJson(Pipeline) }}'
+      name: Log Pipeline
+      continue-on-error: true
+    - pwsh: echo '${{ convertToJson(Agent) }}'
+      name: Log Agent
+      continue-on-error: true
+    - pwsh: echo '${{ convertToJson(Build) }}'
+      name: Log Build
+      continue-on-error: true

@@ -1,0 +1,37 @@
+name: ctxinfo matrix
+
+# pushing just a tag with no changes won't trigger push
+# not sure if the branch filter caused this, adding "tags - v* works
+# adding a new tag might trigger create event
+
+on:
+  workflow_dispatch:
+  #push:
+  #  branches:
+  #    - buildtest
+  #  tags:
+  #    - v*
+
+jobs:
+  info:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    steps:
+    - name: Log Environment
+      continue-on-error: true
+      shell: pwsh
+      run: 'Get-ChildItem Env:'
+    - name: Log github ctx
+      continue-on-error: true
+      shell: pwsh
+      run: echo '${{ toJson(github) }}'
+    - name: Log runner ctx
+      continue-on-error: true
+      shell: pwsh
+      run: echo '${{ toJson(runner) }}'
+    - name: Dotnet Info
+      continue-on-error: true
+      shell: pwsh
+      run: dotnet --info
