@@ -47,15 +47,15 @@ stages:
     - pwsh: echo '${{ convertToJson(parameters) }}'
       displayName: Log parameters
       continueOnError: true
-    - pwsh: echo '${{ convertToJson(System) }}'
-      displayName: Log System
-      continueOnError: true
-    - pwsh: echo '${{ convertToJson(Pipeline) }}'
-      displayName: Log Pipeline
-      continueOnError: true
-    - pwsh: echo '${{ convertToJson(Agent) }}'
-      displayName: Log Agent
-      continueOnError: true
-    - pwsh: echo '${{ convertToJson(Build) }}'
-      displayName: Log Build
-      continueOnError: true
+    #- pwsh: echo '${{ convertToJson(System) }}'
+    #  displayName: Log System
+    #  continueOnError: true
+    #- pwsh: echo '${{ convertToJson(Pipeline) }}'
+    #  displayName: Log Pipeline
+    #  continueOnError: true
+    #- pwsh: echo '${{ convertToJson(Agent) }}'
+    #  displayName: Log Agent
+    #  continueOnError: true
+    #- pwsh: echo '${{ convertToJson(Build) }}'
+    #  displayName: Log Build
+    #  continueOnError: true
