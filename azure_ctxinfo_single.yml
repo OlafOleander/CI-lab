@@ -31,7 +31,7 @@ stages:
       name: Azure Pipelines
       vmImage: ubuntu-latest
     steps:
-    - pwsh: echo '${{ Build.Reason }}'
+    - pwsh: echo $[Build.Reason]
       displayName: Build.Reason
       continueOnError: true
 # Manual: A user manually queued the build.
@@ -49,7 +49,8 @@ stages:
     - pwsh: 'Get-ChildItem Env:'
       displayName: Log Environment
       continueOnError: true
-    - pwsh: echo '${{ convertToJson(variables) }}'
+    #- pwsh: echo '${{ convertToJson(variables) }}'
+    - pwsh: echo '$[convertToJson(variables)]'
       displayName: Log variables
       continueOnError: true
     - pwsh: echo '${{ convertToJson(parameters) }}'
