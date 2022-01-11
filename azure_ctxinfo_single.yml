@@ -50,7 +50,7 @@ stages:
       displayName: Log Environment
       continueOnError: true
     #- pwsh: echo '${{ convertToJson(variables) }}'
-    - pwsh: echo $(convertToJson(Build))
+    - pwsh: echo $(Build)
       displayName: Log variables
       continueOnError: true
     - pwsh: echo '${{ convertToJson(parameters) }}'
