@@ -49,8 +49,7 @@ stages:
     - pwsh: 'Get-ChildItem Env:'
       displayName: Log Environment
       continueOnError: true
-    #- pwsh: echo '${{ convertToJson(variables) }}'
-    - pwsh: echo $(Build)
+    - pwsh: echo '${{ convertToJson(variables) }}'
       displayName: Log variables
       continueOnError: true
     - pwsh: echo '${{ convertToJson(parameters) }}'
