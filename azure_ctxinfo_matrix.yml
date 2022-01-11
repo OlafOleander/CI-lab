@@ -39,7 +39,7 @@ stages:
       name: Azure Pipelines
       vmImage: $(imageName)
     steps:
-    - pwsh: echo '${{ Build.Reason }}'
+    - pwsh: echo $(Build.Reason)
       displayName: Build.Reason
       continueOnError: true
 # Manual: A user manually queued the build.
