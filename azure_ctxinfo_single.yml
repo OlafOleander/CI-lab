@@ -27,17 +27,9 @@ stages:
   jobs:
   - job: job1
     displayName: Job 1
-    strategy:
-      matrix:
-        ubuntu:
-          imageName: ubuntu-latest
-        macos:
-          imageName: macOS-latest
-        windows:
-          imageName: windows-latest
     pool:
       name: Azure Pipelines
-      vmImage: $(imageName)
+      vmImage: ubuntu-latest
     steps:
     - pwsh: echo '${{ Build.Reason }}'
       displayName: Build.Reason
