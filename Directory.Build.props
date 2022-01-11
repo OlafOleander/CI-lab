@@ -17,6 +17,16 @@
     <Company>Mawosoft</Company>
     <Product>Mawosoft.ConsoleApp3</Product>
     <Copyright>Copyright (c) 2021-2022 Matthias Wolf, Mawosoft</Copyright>
+    <!--
+      - We should maybe split this into Prefix/Suffix anyway? (See notes in targets)
+        Suffix starting with dev => CI,nightly,etc => Azure feed
+        Suffix starting with pre (maybe also rc?) => Azure + Nuget
+        No suffix => official release => Azure? + Nuget
+      - Use format place holder?
+        Version: 0.2.1-dev.{height}
+        AssemblyFilVersion: 0.2.1.{height}
+        AssemblyVersion: 0.2.1.0
+    -->
     <Version>0.2.1-dev</Version>
   </PropertyGroup>
 

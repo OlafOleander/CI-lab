@@ -21,6 +21,10 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <IsPackable>true</IsPackable>
+    <!--
+        default is portable (pdb) embedded is slightly smaller than dll+pdb
+    -->
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -37,8 +41,12 @@
     <RepositoryUrl>https://github.com/mawosoft/CI-lab</RepositoryUrl>
     <PackageProjectUrl>https://github.com/mawosoft/CI-lab</PackageProjectUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <!--
+         With PackAsTool a pdb files is automatically included into the nupkg (unless embedded),
+         even if IncludeSymbols=false, thus the snupkg isn't needed at all.
+    -->
+    <!--<IncludeSymbols>false</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>-->
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <PackageReleaseNotes>It's released, that's a note.</PackageReleaseNotes>
   </PropertyGroup>
