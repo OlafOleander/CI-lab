@@ -22,7 +22,8 @@ pr: # also allows branches and paths
   - '*' # default. These are PR target branches, e.g. master
 
 stages:
-- stage: First stage
+- stage:
+  displayName: First stage
   jobs:
   - job: job1
     displayName: Job 1
