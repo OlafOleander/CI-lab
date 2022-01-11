@@ -25,32 +25,37 @@ stages:
 - stage: First stage
   jobs:
   - job: job1
-    displayname: Job 1
+    displayName: Job 1
     strategy:
       matrix:
-        imageName: [ubuntu-latest, macOS-latest, windows-latest]
+        ubuntu:
+          imageName: ubuntu-latest
+        macos:
+          imageName: macOS-latest
+        windows:
+          imageName: windows-latest
     pool:
       name: Azure Pipelines
       vmImage: $(imageName)
     steps:
     - pwsh: 'Get-ChildItem Env:'
-      name: Log Environment
-      continue-on-error: true
+      displayName: Log Environment
+      continueOnError: true
     - pwsh: echo '${{ convertToJson(variables) }}'
-      name: Log variables
-      continue-on-error: true
+      displayName: Log variables
+      continueOnError: true
     - pwsh: echo '${{ convertToJson(parameters) }}'
-      name: Log parameters
-      continue-on-error: true
+      displayName: Log parameters
+      continueOnError: true
     - pwsh: echo '${{ convertToJson(System) }}'
-      name: Log System
-      continue-on-error: true
+      displayName: Log System
+      continueOnError: true
     - pwsh: echo '${{ convertToJson(Pipeline) }}'
-      name: Log Pipeline
-      continue-on-error: true
+      displayName: Log Pipeline
+      continueOnError: true
     - pwsh: echo '${{ convertToJson(Agent) }}'
-      name: Log Agent
-      continue-on-error: true
+      displayName: Log Agent
+      continueOnError: true
     - pwsh: echo '${{ convertToJson(Build) }}'
-      name: Log Build
-      continue-on-error: true
+      displayName: Log Build
+      continueOnError: true
